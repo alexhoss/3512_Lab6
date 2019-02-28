@@ -23,8 +23,7 @@ Dictionary::Dictionary(ifstream &file) {
 ostream &operator<<(ostream &os, const Dictionary &d) {
 
     for (auto &it : d.dictMap) {
-        os << it.first << endl;
-        os << it.second << endl;
+        os << it.first << " - "<< it.second << endl;
     }
     return os;
 

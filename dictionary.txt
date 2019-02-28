@@ -1,4 +1,6 @@
-word0
-my def word0
-word1
-my def word1asddasdasdasd
+hello
+mydef
+world
+hellodef
+mynewdefinition
+isthisa defeinition hello

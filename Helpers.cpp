@@ -43,7 +43,7 @@ void Helpers::newEntry(Dictionary &d) {
         auto itr = d.getDictMap().find(word);
         if (itr == d.getDictMap().end()) {
             cout << "Enter the definition: ";
-            cin >> def;
+            getline(cin, def);
             d.add(word, def);
             doing = false;
             cout << "Add successful" << endl;
@@ -60,20 +60,28 @@ void Helpers::play(Dictionary &d) {
     int choice;
 
     while (playing) {
+        cin.clear();
         cout << "            MENU\n============================== \n\nPrint dictionary: 1\n"
                 "Find word: 2\n"
                 "Enter dictionary: 3\n"
                 "Exit: 4\n" << endl;
 
 
-        cin >> choice;
+        //cin >> choice;
 
-        if (cin.fail()) {
-            cout << "Not a digit, try again" << endl;
+        while(!(cin >> choice)){
             cin.clear();
-            cin.ignore(2048, '\n');
-
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid input.  Try again: ";
         }
+
+
+//        if (cin.fail()) {
+//            cout << "Not a digit, try again" << endl;
+//            cin.clear();
+//            cin.ignore(2048, '\n');
+//
+//        }
 
         switch (choice) {
             case 1:
@@ -89,7 +97,7 @@ void Helpers::play(Dictionary &d) {
                 playing = false;
                 break;
             default:
-                cout << "Invalid choice" << endl;
+                cout << "Not an option" << endl;
                 break;
 
         }
@@ -101,7 +109,7 @@ void Helpers::writeToFile(string word, string def) {
     ofstream file("../Dictionary.txt", ios_base::app);
     if (!(file.is_open())) exit(1);
 
-    file << "\r" << word << "\r" << def;
+    file << "\n" << word << "\n" << def;
 
 
 }
