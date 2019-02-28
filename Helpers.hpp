@@ -15,6 +15,7 @@ public:
 
     static void findWord (Dictionary &d);
     static void newEntry(Dictionary &d);
+    static void play(Dictionary &d);
 
 };
 

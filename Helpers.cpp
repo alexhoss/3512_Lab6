@@ -12,12 +12,12 @@ void Helpers::findWord(Dictionary &d) {
 
     auto itr = d.getDictMap().find(key);
 
-    if (itr == d.getDictMap().end()){
+    if (itr == d.getDictMap().end()) {
         cout << "Word not found" << endl;
         return; // RETURN TO MENU
     }
 
-    cout << itr->second << endl;
+    cout << "Word found! " << itr->first << "-" << itr->second << endl;
 }
 
 void Helpers::newEntry(Dictionary &d) {
@@ -36,11 +36,42 @@ void Helpers::newEntry(Dictionary &d) {
             d.add(word, def);
             doing = false;
             cout << "Add succesful" << endl;
+        } else cout << "Word already exists, try again" << endl;
+
+
+    }
+
+}
+
+void Helpers::play(Dictionary &d) {
+    bool playing = true;
+
+    while (playing) {
+        cout << "MENU\n============================== \n\nPrint dictionary: 1\n"
+                "Find word: 2\n"
+                "Enter dictionary: 3\n"
+                "Exit: 4\n" << endl;
+
+        int choice;
+
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                cout << d << endl;
+                break;
+            case 2:
+                Helpers::findWord(d);
+                break;
+            case 3:
+                Helpers::newEntry(d);
+                break;
+            case 4:
+                playing = false;
+                break;
+            default: break;
+
         }
-        else cout << "Word already exists, try again" << endl;
-
-
     }
-    // TODO RETURN TO MENU and write to dict
 
-    }
+}
