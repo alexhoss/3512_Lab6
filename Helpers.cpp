@@ -4,17 +4,23 @@
 
 #include "Helpers.hpp"
 
+#include <algorithm>
 
 void Helpers::findWord(Dictionary &d) {
     string key;
-    cout << "Enter a word to search for: ";
+    cout << "\nEnter a word to search for: ";
     cin >> key;
+    cin.ignore(2048, '\n');
+
+    cout << "\nsearing for " << key << endl;
+
+    transform(key.begin(), key.end(), key.begin(), ::tolower);
 
     auto itr = d.getDictMap().find(key);
 
     if (itr == d.getDictMap().end()) {
-        cout << "Word not found" << endl;
-        return; // RETURN TO MENU
+        cout << "\nWord not found\n" << endl;
+        return;
     }
 
     cout << "Word found! " << itr->first << "-" << itr->second << endl;
@@ -25,9 +31,14 @@ void Helpers::newEntry(Dictionary &d) {
     string def;
     bool doing = true;
 
+
     while (doing) {
         cout << "Enter a word to add: ";
         cin >> word;
+        cin.ignore(2048, '\n');
+
+        transform(word.begin(), word.end(), word.begin(), ::tolower);
+
 
         auto itr = d.getDictMap().find(word);
         if (itr == d.getDictMap().end()) {
@@ -35,7 +46,8 @@ void Helpers::newEntry(Dictionary &d) {
             cin >> def;
             d.add(word, def);
             doing = false;
-            cout << "Add succesful" << endl;
+            cout << "Add successful" << endl;
+            writeToFile(word, def);
         } else cout << "Word already exists, try again" << endl;
 
 
@@ -45,16 +57,23 @@ void Helpers::newEntry(Dictionary &d) {
 
 void Helpers::play(Dictionary &d) {
     bool playing = true;
+    int choice;
 
     while (playing) {
-        cout << "MENU\n============================== \n\nPrint dictionary: 1\n"
+        cout << "            MENU\n============================== \n\nPrint dictionary: 1\n"
                 "Find word: 2\n"
                 "Enter dictionary: 3\n"
                 "Exit: 4\n" << endl;
 
-        int choice;
 
         cin >> choice;
+
+        if (cin.fail()) {
+            cout << "Not a digit, try again" << endl;
+            cin.clear();
+            cin.ignore(2048, '\n');
+
+        }
 
         switch (choice) {
             case 1:
@@ -69,9 +88,20 @@ void Helpers::play(Dictionary &d) {
             case 4:
                 playing = false;
                 break;
-            default: break;
+            default:
+                cout << "Invalid choice" << endl;
+                break;
 
         }
     }
+
+}
+
+void Helpers::writeToFile(string word, string def) {
+    ofstream file("../Dictionary.txt", ios_base::app);
+    if (!(file.is_open())) exit(1);
+
+    file << "\r" << word << "\r" << def;
+
 
 }

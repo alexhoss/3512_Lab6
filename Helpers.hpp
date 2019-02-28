@@ -3,6 +3,7 @@
 //
 #include <string>
 #include <iostream>
+#include <fstream>
 #include "Dictionary.hpp"
 using namespace std;
 
@@ -16,6 +17,8 @@ public:
     static void findWord (Dictionary &d);
     static void newEntry(Dictionary &d);
     static void play(Dictionary &d);
+    static void writeToFile(string word, string def);
+
 
 };
 

@@ -1,6 +1,2 @@
-word0
-definition0
-word1
-definition1
-word2
-definition2
+This is a line.
+This is another line.

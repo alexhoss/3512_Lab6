@@ -12,7 +12,9 @@ Dictionary::Dictionary(ifstream &file) {
     string def;
     if (!(file.is_open())) exit(1);
 
-    while (file >> word >> def) {
+    while (getline(file, word)) {
+        cout << word;
+
         dictMap.insert(make_pair(word, def));
     }
     file.close();
@@ -21,7 +23,7 @@ Dictionary::Dictionary(ifstream &file) {
 
 ostream &operator<<(ostream &os, const Dictionary &d) {
     for (auto &it : d.dictMap) {
-        os << it.first << " : " << it.second << endl;
+        os << it.first << " - " << it.second << endl;
     }
     return os;
 
