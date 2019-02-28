@@ -6,6 +6,7 @@
 #include <map>
 #include <string>
 #include <iterator>
+#include <sstream>
 
 #ifndef INC_3512_LAB6_DICTIONARY_HPP
 #define INC_3512_LAB6_DICTIONARY_HPP
